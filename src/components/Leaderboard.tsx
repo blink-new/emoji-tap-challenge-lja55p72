@@ -45,12 +45,25 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
       </motion.div>
       
       {entries.length === 0 ? (
-        <div className="text-center py-12 opacity-70 bg-white/5 backdrop-blur-sm rounded-xl w-full mb-8">
-          <div className="text-5xl mb-4">🏆</div>
+        <div className="text-center py-12 opacity-70 bg-white/5 backdrop-blur-sm rounded-xl w-full mb-8 border border-white/10 shadow-lg">
+          <motion.div 
+            className="text-5xl mb-4"
+            animate={{
+              y: [0, -10, 0],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            🏆
+          </motion.div>
           <div>No scores yet. Be the first to play!</div>
         </div>
       ) : (
-        <div className="w-full bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden mb-8 shadow-xl">
+        <div className="w-full bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden mb-8 shadow-xl border border-white/10">
           <div className="grid grid-cols-12 gap-2 p-3 border-b border-white/10 font-semibold text-sm bg-white/5">
             <div className="col-span-1">#</div>
             <div className="col-span-4">Name</div>
@@ -64,9 +77,9 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
               <motion.div 
                 key={entry.id}
                 className={`grid grid-cols-12 gap-2 p-3 border-b border-white/5 text-sm ${
-                  index === 0 ? 'bg-yellow-500/20' : 
-                  index === 1 ? 'bg-gray-400/10' : 
-                  index === 2 ? 'bg-amber-700/10' : ''
+                  index === 0 ? 'bg-gradient-to-r from-yellow-500/20 to-amber-500/10' : 
+                  index === 1 ? 'bg-gradient-to-r from-gray-400/10 to-slate-400/5' : 
+                  index === 2 ? 'bg-gradient-to-r from-amber-700/10 to-amber-700/5' : ''
                 }`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -78,7 +91,8 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
                     <motion.span
                       animate={{ 
                         scale: [1, 1.2, 1],
-                        rotate: index === 0 ? [0, 5, -5, 0] : 0
+                        rotate: index === 0 ? [0, 5, -5, 0] : 0,
+                        y: index === 0 ? [0, -3, 0] : 0
                       }}
                       transition={{
                         duration: 2,
@@ -128,10 +142,20 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
       >
         <Button 
           variant="outline" 
-          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10 text-white"
+          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10 text-white relative overflow-hidden"
           onClick={onClose}
         >
-          Back to Menu
+          {/* Button hover effect */}
+          <motion.div
+            className="absolute inset-0 bg-white/10"
+            initial={{ x: '-100%' }}
+            whileHover={{ x: '100%' }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut"
+            }}
+          />
+          <span className="relative z-10">Back to Menu</span>
         </Button>
       </motion.div>
     </motion.div>
