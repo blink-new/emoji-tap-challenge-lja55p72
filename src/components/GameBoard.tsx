@@ -19,11 +19,11 @@ export const GameBoard = ({ gameState, onEmojiTap }: GameBoardProps) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full mx-auto px-4 flex-1 flex items-center justify-center">
       <AnimatePresence mode="wait">
         <motion.div 
           key={targetEmoji}
-          className={`grid ${getGridCols()} gap-3 p-4`}
+          className={`grid ${getGridCols()} gap-3 w-full`}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}

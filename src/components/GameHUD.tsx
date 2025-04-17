@@ -13,7 +13,7 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
   const timePercentage = (timeLeft / 30) * 100;
   
   return (
-    <div className="w-full max-w-md mx-auto mb-6 px-4">
+    <div className="w-full mx-auto mb-4 px-4">
       <div className="flex justify-between items-center mb-4">
         <div className="flex flex-col">
           <span className="text-sm font-semibold opacity-80">SCORE</span>
@@ -56,11 +56,11 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
       </div>
       
       {/* Target emoji to tap */}
-      <div className="mb-4 text-center">
+      <div className="mb-6 text-center">
         <span className="text-sm font-semibold opacity-80 block">TAP THIS EMOJI</span>
         <motion.div
           key={targetEmoji}
-          className="text-5xl sm:text-6xl mt-1"
+          className="text-6xl sm:text-7xl mt-2"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -70,7 +70,7 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
       </div>
       
       {/* Time bar */}
-      <div className="w-full h-3 bg-gray-700 rounded-full overflow-hidden">
+      <div className="w-full h-4 bg-gray-700 rounded-full overflow-hidden">
         <motion.div 
           className="h-full bg-gradient-to-r from-red-500 to-yellow-400"
           style={{ width: `${timePercentage}%` }}

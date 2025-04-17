@@ -18,7 +18,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="mb-6 flex justify-center">
+      <div className="mb-8 flex justify-center">
         {decorationEmojis.map((emoji, index) => (
           <motion.div
             key={index}
@@ -37,7 +37,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
       </div>
       
       <motion.h1 
-        className="text-4xl sm:text-5xl font-bold mb-2"
+        className="text-4xl sm:text-5xl font-bold mb-3"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
@@ -46,7 +46,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
       </motion.h1>
       
       <motion.p 
-        className="text-lg opacity-80 mb-8 max-w-md"
+        className="text-lg opacity-80 mb-10 max-w-xs"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 0.8 }}
         transition={{ delay: 0.5, duration: 0.5 }}
@@ -61,7 +61,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
           transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
         >
           <Button 
-            className="w-full text-lg py-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+            className="w-full text-lg py-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-900/30"
             onClick={onStart}
           >
             Start Game
@@ -75,7 +75,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
         >
           <Button 
             variant="outline" 
-            className="w-full text-lg py-6"
+            className="w-full text-lg py-6 border-white/20 backdrop-blur-sm hover:bg-white/10"
             onClick={onShowLeaderboard}
           >
             Leaderboard

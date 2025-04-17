@@ -33,10 +33,12 @@ function App() {
   };
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 text-white overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 text-white overflow-hidden">
+      {/* Background pattern */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoNnYtNmgtNnptLTYgNnY2aDZ2LTZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50"></div>
       
-      <div className="relative w-full max-w-2xl min-h-[600px] flex flex-col items-center justify-center p-4">
+      {/* Main container with fixed width and centered */}
+      <div className="relative w-full max-w-md mx-auto min-h-[600px] flex flex-col items-center justify-center p-4">
         <AnimatePresence mode="wait">
           {!gameState.isPlaying && !gameState.gameOver && !showLeaderboard && (
             <motion.div 
@@ -72,7 +74,7 @@ function App() {
           {gameState.isPlaying && !gameState.gameOver && (
             <motion.div 
               key="game-screen"
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              className="absolute inset-0 flex flex-col items-center justify-center py-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -104,7 +106,7 @@ function App() {
         </AnimatePresence>
       </div>
       
-      <footer className="mt-auto py-4 text-center text-sm opacity-70">
+      <footer className="w-full mt-auto py-4 text-center text-sm opacity-70">
         Emoji Tap Challenge | Tap fast, score high!
       </footer>
     </div>

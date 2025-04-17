@@ -37,7 +37,7 @@ export const GameOverScreen = ({
       transition={{ duration: 0.5 }}
     >
       <motion.h2 
-        className="text-3xl sm:text-4xl font-bold mb-6"
+        className="text-3xl sm:text-4xl font-bold mb-8"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 300 }}
@@ -45,9 +45,9 @@ export const GameOverScreen = ({
         Game Over!
       </motion.h2>
       
-      <div className="grid grid-cols-3 gap-4 w-full max-w-md mb-8">
+      <div className="grid grid-cols-3 gap-4 w-full mb-8">
         <motion.div 
-          className="bg-white/10 backdrop-blur-sm rounded-xl p-4"
+          className="bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-lg"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.3 }}
@@ -57,7 +57,7 @@ export const GameOverScreen = ({
         </motion.div>
         
         <motion.div 
-          className="bg-white/10 backdrop-blur-sm rounded-xl p-4"
+          className="bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-lg"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.3 }}
@@ -67,7 +67,7 @@ export const GameOverScreen = ({
         </motion.div>
         
         <motion.div 
-          className="bg-white/10 backdrop-blur-sm rounded-xl p-4"
+          className="bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-lg"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.3 }}
@@ -79,7 +79,7 @@ export const GameOverScreen = ({
       
       {!saved ? (
         <motion.div 
-          className="w-full max-w-md mb-6"
+          className="w-full mb-8"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.3 }}
@@ -89,21 +89,25 @@ export const GameOverScreen = ({
               placeholder="Enter your name"
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              className="flex-1"
+              className="flex-1 bg-white/10 border-white/20 placeholder:text-white/50"
             />
-            <Button onClick={handleSave} disabled={!playerName.trim()}>
+            <Button 
+              onClick={handleSave} 
+              disabled={!playerName.trim()}
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+            >
               Save Score
             </Button>
           </div>
         </motion.div>
       ) : (
         <motion.div 
-          className="text-green-400 mb-6"
+          className="text-green-400 mb-8 font-semibold"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          Score saved to leaderboard!
+          Score saved to leaderboard! 🎉
         </motion.div>
       )}
       
@@ -111,9 +115,10 @@ export const GameOverScreen = ({
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.8, type: "spring", stiffness: 300 }}
+        className="w-full max-w-xs"
       >
         <Button 
-          className="w-full max-w-md text-lg py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+          className="w-full text-lg py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-900/30"
           onClick={onRestart}
         >
           Play Again
