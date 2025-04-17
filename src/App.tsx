@@ -14,16 +14,17 @@ function App() {
   const { gameState, startGame, resetGame, handleTap } = useGameState();
   const { leaderboard, addEntry } = useLeaderboard();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [bgParticles, setBgParticles] = useState<Array<{x: number, y: number, size: number, emoji: string}>>([]);
+  const [bgParticles, setBgParticles] = useState<Array<{x: number, y: number, size: number, emoji: string, speed: number}>>([]);
   
   // Generate background particles on mount
   useEffect(() => {
     const emojis = ['😀', '🎮', '⚡', '🎯', '🏆', '🔥', '⏱️', '🎪', '🎭', '🎨', '🎬', '🎤', '🎧'];
-    const particles = Array.from({ length: 20 }, () => ({
+    const particles = Array.from({ length: 25 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
       size: Math.random() * 0.5 + 0.5,
-      emoji: emojis[Math.floor(Math.random() * emojis.length)]
+      emoji: emojis[Math.floor(Math.random() * emojis.length)],
+      speed: Math.random() * 20 + 15
     }));
     setBgParticles(particles);
   }, []);
@@ -74,7 +75,7 @@ function App() {
               rotate: [0, 360]
             }}
             transition={{ 
-              duration: 20 + Math.random() * 30,
+              duration: particle.speed,
               repeat: Infinity,
               repeatType: "reverse",
               ease: "linear"
@@ -86,8 +87,30 @@ function App() {
       </div>
       
       {/* Light effect */}
-      <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-purple-500/20 rounded-full blur-3xl z-0"></div>
-      <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full blur-3xl z-0"></div>
+      <motion.div 
+        className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-purple-500/20 rounded-full blur-3xl z-0"
+        animate={{
+          x: [0, 20, 0],
+          opacity: [0.2, 0.3, 0.2]
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full blur-3xl z-0"
+        animate={{
+          x: [0, -20, 0],
+          opacity: [0.2, 0.3, 0.2]
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
       
       {/* Main container with fixed width and centered */}
       <div className="relative w-full max-w-md mx-auto min-h-[600px] flex flex-col items-center justify-center p-4 z-10">

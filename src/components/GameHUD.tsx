@@ -51,7 +51,7 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
           <span className="text-sm font-semibold opacity-80">LEVEL {level}</span>
           <motion.span 
             key={level}
-            className="text-lg font-medium"
+            className="text-lg font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -64,10 +64,26 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
           <span className="text-sm font-semibold opacity-80">COMBO</span>
           <motion.span 
             key={combo}
-            className="text-2xl font-bold"
-            initial={{ scale: 1.2, color: combo > 0 ? "#ffcc00" : "#ffffff" }}
-            animate={{ scale: 1, color: combo > 0 ? "#ffcc00" : "#ffffff" }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className={`text-2xl font-bold ${combo > 5 ? 'bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500' : combo > 0 ? 'text-yellow-400' : 'text-white'}`}
+            initial={{ scale: 1.2 }}
+            animate={{ 
+              scale: combo > 5 ? [1, 1.1, 1] : 1,
+              rotate: combo > 8 ? [0, 2, -2, 0] : 0
+            }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 300,
+              scale: {
+                repeat: combo > 5 ? Infinity : 0,
+                repeatType: "reverse",
+                duration: 1
+              },
+              rotate: {
+                repeat: combo > 8 ? Infinity : 0,
+                repeatType: "reverse",
+                duration: 0.5
+              }
+            }}
           >
             {combo}x
           </motion.span>
@@ -163,7 +179,20 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
           exit={{ opacity: 0, height: 0 }}
         >
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-yellow-400">POWER-UP ACTIVE!</span>
+            <motion.span 
+              className="text-xs font-semibold text-yellow-400"
+              animate={{
+                scale: [1, 1.05, 1],
+                color: ['#facc15', '#fef08a', '#facc15']
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              ⚡ POWER-UP ACTIVE! ⚡
+            </motion.span>
             <span className="text-xs font-semibold text-yellow-400">{powerUpTimeLeft.toFixed(1)}s</span>
           </div>
           <div className="w-full h-2 bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm">
@@ -178,7 +207,7 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
       )}
       
       {/* Time bar */}
-      <div className="w-full h-4 bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm">
+      <div className="w-full h-4 bg-gray-700/50 rounded-full overflow-hidden backdrop-blur-sm shadow-inner">
         <motion.div 
           className={`h-full ${
             powerUpActive 
@@ -192,7 +221,22 @@ export const GameHUD = ({ gameState }: GameHUDProps) => {
             width: `${timePercentage}%`
           }}
           transition={{ type: "spring", stiffness: 300 }}
-        />
+        >
+          {/* Pulsing effect when time is low */}
+          {timePercentage < 20 && !powerUpActive && (
+            <motion.div 
+              className="absolute inset-0 bg-red-500/50"
+              animate={{ 
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{
+                duration: 0.5,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            />
+          )}
+        </motion.div>
       </div>
       
       {/* Time indicator */}

@@ -12,6 +12,7 @@ export const GameBoard = ({ gameState, onEmojiTap }: GameBoardProps) => {
   const { emojis, targetEmoji, shakingEmojis, emojiSize, powerUpActive, lastTapCorrect } = gameState;
   const [confetti, setConfetti] = useState<{x: number, y: number, emoji: string}[]>([]);
   const [tapEffect, setTapEffect] = useState<{x: number, y: number, correct: boolean, time: number} | null>(null);
+  const [feedbackText, setFeedbackText] = useState<{text: string, correct: boolean, x: number, y: number} | null>(null);
   
   // Calculate grid columns based on emoji count
   const getGridCols = () => {
@@ -65,10 +66,23 @@ export const GameBoard = ({ gameState, onEmojiTap }: GameBoardProps) => {
       time: Date.now()
     });
     
+    // Add feedback text
+    setFeedbackText({
+      text: emoji === targetEmoji ? 'Perfect!' : 'Wrong!',
+      correct: emoji === targetEmoji,
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top - 30
+    });
+    
     // Clear tap effect after animation
     setTimeout(() => {
       setTapEffect(null);
     }, 500);
+    
+    // Clear feedback text
+    setTimeout(() => {
+      setFeedbackText(null);
+    }, 800);
     
     onEmojiTap(emoji);
   };
@@ -116,6 +130,26 @@ export const GameBoard = ({ gameState, onEmojiTap }: GameBoardProps) => {
           animate={{ opacity: 0, scale: 2 }}
           transition={{ duration: 0.5 }}
         />
+      )}
+      
+      {/* Feedback text */}
+      {feedbackText && (
+        <motion.div
+          className={`absolute pointer-events-none z-30 font-bold text-sm ${
+            feedbackText.correct ? 'text-green-400' : 'text-red-400'
+          }`}
+          style={{
+            left: feedbackText.x,
+            top: feedbackText.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: -20 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {feedbackText.text}
+        </motion.div>
       )}
       
       {/* Power-up effect */}
@@ -187,6 +221,22 @@ export const GameBoard = ({ gameState, onEmojiTap }: GameBoardProps) => {
                   }}
                 />
               )}
+              
+              {/* Shimmer effect on hover */}
+              <motion.div 
+                className="absolute inset-0 bg-white/0 rounded-xl z-0 overflow-hidden"
+                whileHover={{
+                  background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)",
+                  backgroundSize: "200% 100%",
+                  backgroundPosition: ["100%", "-100%"]
+                }}
+                transition={{
+                  backgroundPosition: {
+                    duration: 1,
+                    ease: "easeInOut"
+                  }
+                }}
+              />
               
               {/* Emoji with potential animation */}
               <motion.span

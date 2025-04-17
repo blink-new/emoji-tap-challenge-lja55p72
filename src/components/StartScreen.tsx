@@ -196,7 +196,7 @@ export const StartScreen = ({ onStart, onShowLeaderboard }: StartScreenProps) =>
         >
           <Button 
             variant="outline" 
-            className="w-full text-lg py-6 border-white/20 backdrop-blur-sm hover:bg-white/10 text-white"
+            className="w-full text-lg py-6 border-white/20 backdrop-blur-sm hover:bg-white/10"
             onClick={onShowLeaderboard}
           >
             Leaderboard

@@ -87,7 +87,7 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
                 transition={{ delay: index * 0.05 }}
               >
                 <div className="col-span-1 font-bold">
-                  {index < 3 ? (
+                {index < 3 ? (
                     <motion.span
                       animate={{ 
                         scale: [1, 1.2, 1],
@@ -142,7 +142,7 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
       >
         <Button 
           variant="outline" 
-          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10 text-white relative overflow-hidden"
+          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10 relative overflow-hidden"
           onClick={onClose}
         >
           {/* Button hover effect */}
