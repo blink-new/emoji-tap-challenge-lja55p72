@@ -10,6 +10,9 @@ interface LeaderboardProps {
 }
 
 export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
+  // Trophy emojis for top 3
+  const trophies = ['🏆', '🥈', '🥉'];
+  
   return (
     <motion.div 
       className="flex flex-col items-center w-full h-full justify-center px-4"
@@ -18,7 +21,28 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.3 }}
     >
-      <h2 className="text-3xl font-bold mb-8">Leaderboard</h2>
+      <motion.div
+        className="flex items-center mb-6"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <motion.span 
+          className="text-4xl mr-2"
+          animate={{ 
+            rotate: [0, 10, -10, 0],
+            y: [0, -5, 0]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        >
+          🏆
+        </motion.span>
+        <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-600">Leaderboard</h2>
+      </motion.div>
       
       {entries.length === 0 ? (
         <div className="text-center py-12 opacity-70 bg-white/5 backdrop-blur-sm rounded-xl w-full mb-8">
@@ -39,15 +63,53 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
             {entries.map((entry, index) => (
               <motion.div 
                 key={entry.id}
-                className={`grid grid-cols-12 gap-2 p-3 border-b border-white/5 text-sm ${index === 0 ? 'bg-yellow-500/10' : ''}`}
+                className={`grid grid-cols-12 gap-2 p-3 border-b border-white/5 text-sm ${
+                  index === 0 ? 'bg-yellow-500/20' : 
+                  index === 1 ? 'bg-gray-400/10' : 
+                  index === 2 ? 'bg-amber-700/10' : ''
+                }`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <div className="col-span-1 font-bold">{index + 1}</div>
+                <div className="col-span-1 font-bold">
+                  {index < 3 ? (
+                    <motion.span
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        rotate: index === 0 ? [0, 5, -5, 0] : 0
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      {trophies[index]}
+                    </motion.span>
+                  ) : (
+                    index + 1
+                  )}
+                </div>
                 <div className="col-span-4 truncate">{entry.name}</div>
-                <div className="col-span-2 text-right font-semibold">{entry.score}</div>
+                <div className="col-span-2 text-right font-semibold">
+                  {index === 0 ? (
+                    <motion.span
+                      animate={{ 
+                        color: ['#ffffff', '#ffcc00', '#ffffff']
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity
+                      }}
+                    >
+                      {entry.score}
+                    </motion.span>
+                  ) : (
+                    entry.score
+                  )}
+                </div>
                 <div className="col-span-2 text-right">{entry.maxCombo}x</div>
                 <div className="col-span-3 text-right text-xs opacity-70">
                   {formatDistanceToNow(new Date(entry.date), { addSuffix: true })}

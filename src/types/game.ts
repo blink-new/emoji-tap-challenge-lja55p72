@@ -15,6 +15,13 @@ export interface GameState {
   targetEmoji: string;
   emojis: string[];
   gameOver: boolean;
+  lastTapCorrect: boolean | null;
+  powerUpActive: boolean;
+  powerUpTimeLeft: number;
+  shakingEmojis: boolean;
+  emojiSize: 'small' | 'normal' | 'large';
+  perfectTaps: number;
+  totalTaps: number;
 }
 
 export interface LeaderboardEntry {

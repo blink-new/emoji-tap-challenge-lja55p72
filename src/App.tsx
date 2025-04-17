@@ -34,11 +34,39 @@ function App() {
   
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 text-white overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoNnYtNmgtNnptLTYgNnY2aDZ2LTZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50"></div>
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoNnYtNmgtNnptLTYgNnY2aDZ2LTZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50"></div>
+        
+        {/* Floating emoji bubbles */}
+        {Array.from({ length: 15 }).map((_, i) => (
+          <motion.div
+            key={`bubble-${i}`}
+            className="absolute text-3xl opacity-10 pointer-events-none"
+            initial={{ 
+              x: `${Math.random() * 100}%`, 
+              y: `${Math.random() * 100}%`,
+              scale: Math.random() * 0.5 + 0.5
+            }}
+            animate={{ 
+              y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+              x: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+              rotate: [0, 360]
+            }}
+            transition={{ 
+              duration: 20 + Math.random() * 30,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+          >
+            {['😀', '🎮', '⚡', '🎯', '🏆', '🔥', '⏱️', '🎪', '🎭', '🎨', '🎬', '🎤', '🎧', '🎸', '🎹', '🎺', '🎻', '🎲', '🎯', '🎪', '🌈', '⭐', '✨', '💫', '🌟', '🔥', '💥', '⚡', '🎇', '🎆', '🏆', '🥇'][Math.floor(Math.random() * 32)]}
+          </motion.div>
+        ))}
+      </div>
       
       {/* Main container with fixed width and centered */}
-      <div className="relative w-full max-w-md mx-auto min-h-[600px] flex flex-col items-center justify-center p-4">
+      <div className="relative w-full max-w-md mx-auto min-h-[600px] flex flex-col items-center justify-center p-4 z-10">
         <AnimatePresence mode="wait">
           {!gameState.isPlaying && !gameState.gameOver && !showLeaderboard && (
             <motion.div 

@@ -20,6 +20,16 @@ export const emojiSets = {
     '🚗', '🚕', '🚙', '🚌', '🚎', 
     '🏎️', '🚓', '🚑', '🚒', '🚐',
     '🛻', '🚚', '🚛', '🚜', '🛵'
+  ],
+  bonus: [
+    '🎮', '🎯', '🎪', '🎭', '🎨',
+    '🎬', '🎤', '🎧', '🎸', '🎹',
+    '🎺', '🎻', '🎲', '🎯', '🎪'
+  ],
+  special: [
+    '🌈', '⭐', '✨', '💫', '🌟',
+    '🔥', '💥', '⚡', '🎇', '🎆',
+    '🏆', '🥇', '🥈', '🥉', '🎖️'
   ]
 }
 
@@ -33,8 +43,13 @@ export const getRandomEmojis = (level: number, count: number): string[] => {
     set = [...emojiSets.easy, ...emojiSets.medium];
   } else if (level <= 9) {
     set = [...emojiSets.medium, ...emojiSets.hard];
-  } else {
+  } else if (level <= 12) {
     set = [...emojiSets.medium, ...emojiSets.hard, ...emojiSets.expert];
+  } else if (level <= 15) {
+    set = [...emojiSets.hard, ...emojiSets.expert, ...emojiSets.bonus];
+  } else {
+    // Super challenging mix for high levels
+    set = [...emojiSets.expert, ...emojiSets.bonus, ...emojiSets.special];
   }
 
   // Shuffle and pick random emojis
@@ -46,4 +61,14 @@ export const getRandomEmojis = (level: number, count: number): string[] => {
 export const getRandomEmoji = (emojis: string[]): string => {
   const randomIndex = Math.floor(Math.random() * emojis.length);
   return emojis[randomIndex];
+};
+
+// Get emoji category name based on level
+export const getEmojiCategoryName = (level: number): string => {
+  if (level <= 3) return "Smiley";
+  if (level <= 6) return "Animals";
+  if (level <= 9) return "Fruits";
+  if (level <= 12) return "Vehicles";
+  if (level <= 15) return "Activities";
+  return "Special";
 };
