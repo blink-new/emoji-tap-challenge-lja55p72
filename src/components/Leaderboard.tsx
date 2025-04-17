@@ -128,7 +128,7 @@ export const Leaderboard = ({ entries, onClose }: LeaderboardProps) => {
       >
         <Button 
           variant="outline" 
-          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10"
+          className="w-full py-4 border-white/20 backdrop-blur-sm hover:bg-white/10 text-white"
           onClick={onClose}
         >
           Back to Menu
